@@ -1,6 +1,5 @@
 import type { WorkingStatus, WorkingRecord } from "./types";
 import { useEffect, useState } from "react";
-import "./App.css";
 
 function App() {
   const [status, setStatus] = useState<WorkingStatus>("中断");
