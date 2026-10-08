@@ -1,6 +1,8 @@
 import type { WorkingStatus, WorkingRecord } from "./types";
 import { useEffect, useState } from "react";
 
+import { Progress } from "@/components/ui/progress";
+
 function App() {
   const [status, setStatus] = useState<WorkingStatus>("中断");
   const [records, setRecords] = useState<WorkingRecord[]>([]);
@@ -45,6 +47,8 @@ function App() {
     });
   };
 
+  const isAchieved = passedTime >= 60;
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <h1 className="font-medium text-6xl">まずは1分タイマー</h1>
@@ -63,6 +67,12 @@ function App() {
       {status === "作業中" && (
         <>
           <p className="text-5xl font-semibold">{timeToString(passedTime)}</p>
+          <Progress
+            className="w-1/2"
+            indicatorClass={isAchieved ? "bg-achieved" : ""}
+            value={isAchieved ? 100 : ((60 - passedTime) / 60) * 100}
+          />
+          {isAchieved && <p>1分達成!いつやめてもOKです</p>}
           <button
             className="bg-red-700 text-white px-4 py-2 rounded-lg"
             onClick={() => stopTimer()}
