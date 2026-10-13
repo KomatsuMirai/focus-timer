@@ -18,10 +18,13 @@ function App() {
     return () => clearInterval(upTimer);
   }, [startTime]);
 
+  const isAchieved = passedTime >= 60;
   const stopTimer = () => {
     if (startTime !== null) {
-      const duration = (new Date().getTime() - startTime.getTime()) / 1000;
-      setRecords([...records, { date: startTime, duration: duration }]);
+      if (isAchieved) {
+        const duration = (new Date().getTime() - startTime.getTime()) / 1000;
+        setRecords([...records, { date: startTime, duration: duration }]);
+      }
       setPassedTime(0);
       setStartTime(null);
       setStatus("中断");
@@ -46,8 +49,16 @@ function App() {
       day: "numeric",
     });
   };
-
-  const isAchieved = passedTime >= 60;
+  const today = dateToLocaleString(new Date());
+  const todayRecords = records.filter(
+    (record) => dateToLocaleString(record.date) === today,
+  );
+  const todayAchievedCount = todayRecords.length;
+  const todaySeconds = todayRecords.reduce(
+    (total, record) => total + record.duration,
+    0,
+  );
+  const todayMinutes = Math.trunc(todaySeconds / 60);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
@@ -81,8 +92,9 @@ function App() {
           </button>
         </>
       )}
-
       <button onClick={() => setIsHistoryOpen(true)}>履歴を表示</button>
+      <p>今日の記録</p>
+      {todayAchievedCount}回{todayMinutes}分
       {isHistoryOpen && (
         <div
           onClick={() => setIsHistoryOpen(false)}
