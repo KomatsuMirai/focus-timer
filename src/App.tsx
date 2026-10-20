@@ -1,7 +1,7 @@
 import type { WorkingStatus, WorkingRecord } from "./types";
 import { useEffect, useState } from "react";
 
-import { Progress } from "@/components/ui/progress";
+import { CircularProgressCombined } from "@/components/ui/circular-progress";
 
 function App() {
   const [status, setStatus] = useState<WorkingStatus>("中断");
@@ -62,7 +62,7 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
-      <h1 className="font-medium text-6xl">まずは1分タイマー</h1>
+      <h1 className="font-semibold text-5xl">まずは1分タイマー</h1>
       <p>状態:{status}</p>
       {status === "中断" && (
         <button
@@ -77,11 +77,12 @@ function App() {
       )}
       {status === "作業中" && (
         <>
-          <p className="text-5xl font-semibold">{timeToString(passedTime)}</p>
-          <Progress
-            className="w-1/2"
-            indicatorClass={isAchieved ? "bg-achieved" : ""}
+          <CircularProgressCombined
             value={isAchieved ? 100 : ((60 - passedTime) / 60) * 100}
+            children={timeToString(passedTime)}
+            textClass="text-5xl font-bold"
+            size={185}
+            thickness={12}
           />
           {isAchieved && <p>1分達成!いつやめてもOKです</p>}
           <button
