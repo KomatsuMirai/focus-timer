@@ -352,13 +352,14 @@ function CircularProgressCombined({
   value,
   children,
   textClass,
+  rangeClass,
   ...props
-}: CircularProgressProps & { textClass?: string }) {
+}: CircularProgressProps & { textClass?: string; rangeClass?: string }) {
   return (
     <CircularProgress value={value} {...props}>
       <CircularProgressIndicator>
         <CircularProgressTrack />
-        <CircularProgressRange />
+        <CircularProgressRange className={rangeClass} />
       </CircularProgressIndicator>
       <CircularProgressValueText children={children} className={textClass} />
     </CircularProgress>

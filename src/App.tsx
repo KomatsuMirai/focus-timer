@@ -83,6 +83,7 @@ function App() {
             textClass="text-5xl font-bold"
             size={185}
             thickness={12}
+            rangeClass={isAchieved ? "text-achieved" : ""}
           />
           {isAchieved && <p>1分達成!いつやめてもOKです</p>}
           <button
