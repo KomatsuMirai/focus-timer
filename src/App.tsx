@@ -61,42 +61,54 @@ function App() {
   const todayMinutes = Math.trunc(todaySeconds / 60);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
-      <h1 className="font-semibold text-5xl">まずは1分タイマー</h1>
-      <p>状態:{status}</p>
-      {status === "中断" && (
-        <button
-          className="bg-green-700 text-white px-4 py-2 rounded-lg"
-          onClick={() => {
-            setStatus("作業中");
-            setStartTime(new Date());
-          }}
+    <div className="flex flex-col justify-center items-center min-h-screen gap-3  bg-mist-200">
+      <h1 className="font-semibold text-4xl">まずは1分タイマー</h1>
+      <div className="flex flex-col items-center bg-mist-100 rounded-2xl w-full max-w-sm py-5 gap-2 shadow-2xl font-semibold">
+        <p>状態:{status}</p>
+        <CircularProgressCombined
+          value={isAchieved ? 100 : ((60 - passedTime) / 60) * 100}
+          size={185}
+          thickness={12}
+          textClass="text-5xl font-bold"
+          rangeClass={isAchieved ? "text-achieved" : "text-blue-300"}
         >
-          1分だけ始める
-        </button>
-      )}
-      {status === "作業中" && (
-        <>
-          <CircularProgressCombined
-            value={isAchieved ? 100 : ((60 - passedTime) / 60) * 100}
-            children={timeToString(passedTime)}
-            textClass="text-5xl font-bold"
-            size={185}
-            thickness={12}
-            rangeClass={isAchieved ? "text-achieved" : ""}
-          />
-          {isAchieved && <p>1分達成!いつやめてもOKです</p>}
+          {timeToString(passedTime)}
+        </CircularProgressCombined>
+        <p className={isAchieved ? "" : "invisible"}>
+          1分達成✨いつやめてもOKです
+        </p>
+        {status === "中断" && (
           <button
-            className="bg-red-700 text-white px-4 py-2 rounded-lg"
-            onClick={() => stopTimer()}
+            className="bg-green-700 text-white px-4 py-2 rounded-lg"
+            onClick={() => {
+              setStatus("作業中");
+              setStartTime(new Date());
+            }}
           >
-            作業を中断
+            1分だけ始める
           </button>
-        </>
-      )}
-      <button onClick={() => setIsHistoryOpen(true)}>履歴を表示</button>
-      <p>今日の記録</p>
-      {todayAchievedCount}回{todayMinutes}分
+        )}
+        {status === "作業中" && (
+          <>
+            <button
+              className="bg-red-700 text-white px-4 py-2 rounded-lg"
+              onClick={() => stopTimer()}
+            >
+              作業を中断
+            </button>
+          </>
+        )}
+      </div>
+      <div
+        className="flex flex-col items-center bg-mist-100 rounded-2xl w-full max-w-sm 
+       py-5 shadow-2xl"
+      >
+        <p className="font-semibold">今日の記録</p>
+        <p>
+          {todayAchievedCount}回{todayMinutes}分
+        </p>
+        <button onClick={() => setIsHistoryOpen(true)}>履歴を表示</button>
+      </div>
       {isHistoryOpen && (
         <div
           onClick={() => setIsHistoryOpen(false)}
