@@ -61,7 +61,7 @@ function App() {
   const todayMinutes = Math.trunc(todaySeconds / 60);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen gap-3  bg-mist-200">
+    <div className="flex flex-col justify-center items-center min-h-screen gap-3  bg-mist-200  text-mist-800">
       <h1 className="font-semibold text-4xl">まずは1分タイマー</h1>
       <div className="flex flex-col items-center bg-mist-100 rounded-2xl w-full max-w-sm py-5 gap-2 shadow-2xl font-semibold">
         <p>状態:{status}</p>
