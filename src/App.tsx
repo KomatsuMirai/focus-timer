@@ -67,10 +67,10 @@ function App() {
         <p>状態:{status}</p>
         <CircularProgressCombined
           value={isAchieved ? 100 : ((60 - passedTime) / 60) * 100}
-          size={185}
-          thickness={12}
-          textClass="text-5xl font-bold"
-          rangeClass={isAchieved ? "text-achieved" : "text-blue-300"}
+          size={190}
+          thickness={15}
+          textClass={`font-bold ${passedTime >= 6000 ? "text-[42px]" : "text-5xl"}`}
+          rangeClass={isAchieved ? "text-amber-500/80" : "text-blue-300"}
         >
           {timeToString(passedTime)}
         </CircularProgressCombined>
@@ -90,7 +90,7 @@ function App() {
         )}
         {status === "作業中" && (
           <button
-            className={`px-4 py-2 rounded-lg border-3 ${isAchieved ? "bg-achieved/10 text-achieved-dark border-achieved-dark" : " bg-white text-blue-500  border-blue-400"}`}
+            className={`px-4 py-2 rounded-lg border-3 ${isAchieved ? "bg-amber-50 text-amber-600 border-amber-600" : " bg-white text-blue-500  border-blue-400"}`}
             onClick={() => stopTimer()}
           >
             終了する
