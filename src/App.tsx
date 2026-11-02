@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CircularProgressCombined } from "@/components/ui/circular-progress";
 
 function App() {
-  const [status, setStatus] = useState<WorkingStatus>("中断");
+  const [status, setStatus] = useState<WorkingStatus>("休憩中");
   const [records, setRecords] = useState<WorkingRecord[]>([]);
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [passedTime, setPassedTime] = useState<number>(0);
@@ -27,7 +27,7 @@ function App() {
       }
       setPassedTime(0);
       setStartTime(null);
-      setStatus("中断");
+      setStatus("休憩中");
     }
   };
 
@@ -77,7 +77,7 @@ function App() {
         <p className={isAchieved ? "" : "invisible"}>
           1分達成✨いつやめてもOKです
         </p>
-        {status === "中断" && (
+        {status === "休憩中" && (
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-lg border-3 border-transparent"
             onClick={() => {
@@ -93,7 +93,7 @@ function App() {
             className={`px-4 py-2 rounded-lg border-3 ${isAchieved ? "bg-amber-50 text-amber-600 border-amber-600" : " bg-white text-blue-500  border-blue-400"}`}
             onClick={() => stopTimer()}
           >
-            終了する
+            {isAchieved ? "終了する" : "中断する"}
           </button>
         )}
       </div>

@@ -1,5 +1,5 @@
 // 状態を表す型
-export type WorkingStatus = "作業中" | "中断";
+export type WorkingStatus = "作業中" | "休憩中";
 
 // 履歴1件分を表す型
 export interface WorkingRecord {
