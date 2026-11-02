@@ -79,7 +79,7 @@ function App() {
         </p>
         {status === "中断" && (
           <button
-            className="bg-green-700 text-white px-4 py-2 rounded-lg"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg border-3 border-transparent"
             onClick={() => {
               setStatus("作業中");
               setStartTime(new Date());
@@ -89,14 +89,12 @@ function App() {
           </button>
         )}
         {status === "作業中" && (
-          <>
-            <button
-              className="bg-red-700 text-white px-4 py-2 rounded-lg"
-              onClick={() => stopTimer()}
-            >
-              作業を中断
-            </button>
-          </>
+          <button
+            className={`px-4 py-2 rounded-lg border-3 ${isAchieved ? "bg-achieved/10 text-achieved-dark border-achieved-dark" : " bg-white text-blue-500  border-blue-400"}`}
+            onClick={() => stopTimer()}
+          >
+            終了する
+          </button>
         )}
       </div>
       <div

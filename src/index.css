@@ -41,6 +41,7 @@
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   --color-achieved: var(--achieved);
+  --color-achieved-dark: var(--achieved-dark);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -93,6 +94,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --achieved: oklch(79.807% 0.17004 72.064);
+  --achieved-dark: oklch(65% 0.15 55);
 }
 
 .dark {
