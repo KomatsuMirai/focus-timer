@@ -19,6 +19,26 @@ function App() {
   }, [startTime]);
 
   const isAchieved = passedTime >= 60;
+  const getStatusStyle = (status: WorkingStatus, isAchieved: boolean) => {
+    if (status === "休憩中")
+      return {
+        color: "bg-gray-300/50 text-gray-500",
+        text: "休憩中",
+        emoji: "💤",
+      };
+    if (isAchieved) {
+      return {
+        color: "bg-amber-100 text-amber-600",
+        text: "1分達成",
+        emoji: "✨",
+      };
+    }
+    return {
+      color: "bg-blue-100 text-blue-600",
+      text: "作業中",
+      emoji: "⏳",
+    };
+  };
   const stopTimer = () => {
     if (startTime !== null) {
       if (isAchieved) {
@@ -34,10 +54,8 @@ function App() {
   const timeToString = (totalSeconds: number) => {
     const minutes = String(Math.trunc(totalSeconds / 60)).padStart(2, "0");
     const seconds = String(Math.trunc(totalSeconds % 60)).padStart(2, "0");
-
     return `${minutes}:${seconds}`;
   };
-
   const secondsToString = (seconds: number) => {
     return `${Math.trunc(seconds / 60)}分${Math.trunc(seconds % 60)}秒`;
   };
@@ -60,11 +78,19 @@ function App() {
   );
   const todayMinutes = Math.trunc(todaySeconds / 60);
 
+  const statusStyle = getStatusStyle(status, isAchieved);
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen gap-3  bg-mist-200  text-mist-800">
       <h1 className="font-semibold text-4xl">まずは1分タイマー</h1>
       <div className="flex flex-col items-center bg-mist-100 rounded-2xl w-full max-w-sm py-5 gap-2 shadow-2xl font-semibold">
-        <p>状態:{status}</p>
+        <p
+          className={`flex justify-center rounded-full w-1/3 py-1 transition-colors duration-500
+            ${statusStyle.color}`}
+        >
+          <span className="">{statusStyle.emoji}</span>
+          {statusStyle.text}
+        </p>
         <CircularProgressCombined
           value={isAchieved ? 100 : ((60 - passedTime) / 60) * 100}
           size={190}
@@ -79,7 +105,7 @@ function App() {
         </p>
         {status === "休憩中" && (
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg border-3 border-transparent"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg border-3 border-transparent active:scale-85"
             onClick={() => {
               setStatus("作業中");
               setStartTime(new Date());
@@ -90,7 +116,8 @@ function App() {
         )}
         {status === "作業中" && (
           <button
-            className={`px-4 py-2 rounded-lg border-3 ${isAchieved ? "bg-amber-50 text-amber-600 border-amber-600" : " bg-white text-blue-500  border-blue-400"}`}
+            key={String(isAchieved)}
+            className={`px-4 py-2 rounded-lg border-3 active:scale-85 active:duration-initial transition-none animate-in fade-in duration-400 ${isAchieved ? "bg-amber-50 text-amber-600 border-amber-600" : " bg-white text-blue-500  border-blue-400"}`}
             onClick={() => stopTimer()}
           >
             {isAchieved ? "終了する" : "中断する"}
