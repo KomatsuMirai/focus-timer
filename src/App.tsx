@@ -20,23 +20,21 @@ function App() {
 
   const isAchieved = passedTime >= 60;
   const getStatusStyle = (status: WorkingStatus, isAchieved: boolean) => {
-    if (status === "休憩中")
+    if (status === "休憩中") {
       return {
         color: "bg-gray-300/50 text-gray-500",
-        text: "休憩中",
-        emoji: "💤",
+        text: "休憩中💤",
       };
+    }
     if (isAchieved) {
       return {
         color: "bg-amber-100 text-amber-600",
-        text: "1分達成",
-        emoji: "✨",
+        text: "1分達成✨",
       };
     }
     return {
       color: "bg-blue-100 text-blue-600",
-      text: "作業中",
-      emoji: "⏳",
+      text: "作業中📝",
     };
   };
   const stopTimer = () => {
@@ -81,14 +79,12 @@ function App() {
   const statusStyle = getStatusStyle(status, isAchieved);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen gap-3  bg-mist-200  text-mist-800">
-      <h1 className="font-semibold text-4xl">まずは1分タイマー</h1>
-      <div className="flex flex-col items-center bg-mist-100 rounded-2xl w-full max-w-sm py-5 gap-2 shadow-2xl font-semibold">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-mist-200 text-mist-800">
+      <h1 className="text-4xl font-semibold">まずは1分タイマー</h1>
+      <div className="flex w-full max-w-sm flex-col items-center gap-2 rounded-2xl bg-mist-100 py-5 font-semibold shadow-2xl">
         <p
-          className={`flex justify-center rounded-full w-1/3 py-1 transition-colors duration-500
-            ${statusStyle.color}`}
+          className={`flex w-1/3 justify-center rounded-full py-1 transition-colors duration-500 ${statusStyle.color}`}
         >
-          <span className="">{statusStyle.emoji}</span>
           {statusStyle.text}
         </p>
         <CircularProgressCombined
@@ -105,7 +101,7 @@ function App() {
         </p>
         {status === "休憩中" && (
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg border-3 border-transparent active:scale-85"
+            className="rounded-lg border-3 border-transparent bg-blue-500 px-4 py-2 text-white active:scale-85"
             onClick={() => {
               setStatus("作業中");
               setStartTime(new Date());
@@ -117,17 +113,14 @@ function App() {
         {status === "作業中" && (
           <button
             key={String(isAchieved)}
-            className={`px-4 py-2 rounded-lg border-3 active:scale-85 active:duration-initial transition-none animate-in fade-in duration-400 ${isAchieved ? "bg-amber-50 text-amber-600 border-amber-600" : " bg-white text-blue-500  border-blue-400"}`}
+            className={`animate-in fade-in rounded-lg border-3 px-4 py-2 transition-none duration-400 active:scale-85 ${isAchieved ? "border-amber-600 bg-amber-50 text-amber-600" : "border-blue-400 bg-white text-blue-500"}`}
             onClick={() => stopTimer()}
           >
             {isAchieved ? "終了する" : "中断する"}
           </button>
         )}
       </div>
-      <div
-        className="flex flex-col items-center bg-mist-100 rounded-2xl w-full max-w-sm 
-       py-5 shadow-2xl"
-      >
+      <div className="flex w-full max-w-sm flex-col items-center rounded-2xl bg-mist-100 py-5 shadow-2xl">
         <p className="font-semibold">
           今日の記録
           <span className="ml-0.5 text-xs font-normal text-mist-500">
@@ -142,11 +135,11 @@ function App() {
       {isHistoryOpen && (
         <div
           onClick={() => setIsHistoryOpen(false)}
-          className="flex fixed inset-0 items-center justify-center bg-black/50 "
+          className="fixed inset-0 flex items-center justify-center bg-black/50"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="flex flex-col w-1/2 h-4/5 bg-white rounded-xl p-2 "
+            className="flex h-4/5 w-1/2 flex-col rounded-xl bg-white p-2"
           >
             <div className="flex justify-between">
               <h2 className="text-2xl">履歴</h2>
@@ -158,7 +151,7 @@ function App() {
                 ×
               </button>
             </div>
-            <ul className="flex flex-col flex-1 gap-2 overflow-y-auto">
+            <ul className="flex flex-1 flex-col gap-2 overflow-y-auto">
               {records.map((record) => (
                 <li key={record.date.getTime()} className="flex gap-2">
                   <span>{dateToLocaleString(record.date)}</span>
