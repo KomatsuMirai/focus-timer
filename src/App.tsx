@@ -128,7 +128,12 @@ function App() {
         className="flex flex-col items-center bg-mist-100 rounded-2xl w-full max-w-sm 
        py-5 shadow-2xl"
       >
-        <p className="font-semibold">今日の記録</p>
+        <p className="font-semibold">
+          今日の記録
+          <span className="ml-0.5 text-xs font-normal text-mist-500">
+            (1分達成した場合のみ記録されます)
+          </span>
+        </p>
         <p>
           {todayAchievedCount}回{todayMinutes}分
         </p>
