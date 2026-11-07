@@ -90,9 +90,9 @@ function App() {
         </p>
         <CircularProgressCombined
           value={isAchieved ? 100 : ((60 - passedTime) / 60) * 100}
-          size={190}
-          thickness={15}
-          textClass={`font-bold ${passedTime >= 6000 ? "text-[42px]" : "text-5xl"}`}
+          size={220}
+          thickness={18}
+          textClass={`font-bold ${passedTime >= 6000 ? "text-[50px]" : "text-6xl"}`}
           rangeClass={isAchieved ? "text-amber-500/80" : "text-blue-300"}
         >
           {timeToString(passedTime)}
