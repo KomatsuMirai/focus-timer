@@ -96,12 +96,12 @@ function App() {
         >
           {timeToString(passedTime)}
         </CircularProgressCombined>
-        <p className={isAchieved ? "" : "invisible"}>
-          1分達成✨いつやめてもOKです
+        <p className={`${isAchieved ? "" : "invisible"} text-sm`}>
+          お疲れ様でした。疲れたら休憩しましょう☕
         </p>
         {status === "休憩中" && (
           <button
-            className="rounded-lg border-3 border-transparent bg-blue-500 px-4 py-2 text-white active:scale-85"
+            className="rounded-lg border-3 border-transparent bg-blue-500 px-4 py-2 text-white active:scale-95"
             onClick={() => {
               setStatus("作業中");
               setStartTime(new Date());
@@ -113,7 +113,7 @@ function App() {
         {status === "作業中" && (
           <button
             key={String(isAchieved)}
-            className={`animate-in fade-in rounded-lg border-3 px-4 py-2 transition-none duration-400 active:scale-85 ${isAchieved ? "border-amber-600 bg-amber-50 text-amber-600" : "border-blue-400 bg-white text-blue-500"}`}
+            className={`animate-in fade-in rounded-lg border-3 px-4 py-2 transition-none duration-400 active:scale-95 ${isAchieved ? "border-amber-600 bg-amber-50 text-amber-600" : "border-blue-400 bg-white text-blue-500"}`}
             onClick={() => stopTimer()}
           >
             {isAchieved ? "終了する" : "中断する"}
