@@ -114,11 +114,11 @@ function App() {
       {isHistoryOpen && (
         <div
           onClick={() => setIsHistoryOpen(false)}
-          className="fixed inset-0 flex items-center justify-center bg-black/50"
+          className="fixed inset-0 flex items-center justify-center bg-black/50 px-4"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="flex h-4/5 w-1/2 flex-col rounded-xl bg-white p-2"
+            className="flex h-4/5 w-full max-w-sm flex-col rounded-xl bg-white p-2"
           >
             <div className="flex justify-between">
               <h2 className="text-2xl">履歴</h2>
