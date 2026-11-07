@@ -9,6 +9,7 @@ import {
   dateToLocaleString,
 } from "./lib/formatDateTime";
 import { getStatusStyle } from "./lib/statusStyle";
+import { TodayRecordFrame } from "./components/TodayRecordFrame";
 
 function App() {
   const [status, setStatus] = useState<WorkingStatus>("休憩中");
@@ -99,16 +100,9 @@ function App() {
       <div className="flex w-full max-w-sm flex-col items-center rounded-2xl bg-mist-100 px-4 py-1.5 shadow-2xl">
         <p className="text-xl font-semibold">今日の達成記録</p>
         <div className="flex gap-3 font-bold">
-          <p className="min-w-38 rounded-xl bg-mist-300 px-5 py-3 text-center">
-            <span className="text-5xl">{todayAchievedCount}</span>
-            <span className="text-lg">回</span>
-          </p>
-          <p className="min-w-38 rounded-xl bg-mist-300 px-5 py-3 text-center">
-            <span className="text-5xl">{todayMinutes}</span>
-            <span className="text-lg">分</span>
-          </p>
+          <TodayRecordFrame value={todayAchievedCount} unit="回" />
+          <TodayRecordFrame value={todayMinutes} unit="分" />
         </div>
-
         <button
           className="flex min-h-11 items-center gap-0.5 self-end text-sm"
           onClick={() => setIsHistoryOpen(true)}

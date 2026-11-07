@@ -1,4 +1,4 @@
-import type { WorkingStatus } from "@/types";
+import type { WorkingStatus } from "../types";
 
 const getStatusStyle = (status: WorkingStatus, isAchieved: boolean) => {
   if (status === "休憩中") {
