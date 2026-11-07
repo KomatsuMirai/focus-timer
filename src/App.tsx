@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 
 import { History } from "lucide-react";
 import { CircularProgressCombined } from "@/components/ui/circular-progress";
+import {
+  timeToString,
+  secondsToString,
+  dateToLocaleString,
+} from "./lib/formatDateTime";
+import { getStatusStyle } from "./lib/statusStyle";
 
 function App() {
   const [status, setStatus] = useState<WorkingStatus>("休憩中");
@@ -20,24 +26,7 @@ function App() {
   }, [startTime]);
 
   const isAchieved = passedTime >= 60;
-  const getStatusStyle = (status: WorkingStatus, isAchieved: boolean) => {
-    if (status === "休憩中") {
-      return {
-        color: "bg-gray-300/50 text-gray-500",
-        text: "休憩中💤",
-      };
-    }
-    if (isAchieved) {
-      return {
-        color: "bg-amber-100 text-amber-600",
-        text: "1分達成✨",
-      };
-    }
-    return {
-      color: "bg-blue-100 text-blue-600",
-      text: "作業中📝",
-    };
-  };
+
   const stopTimer = () => {
     if (startTime !== null) {
       if (isAchieved) {
@@ -50,22 +39,6 @@ function App() {
     }
   };
 
-  const timeToString = (totalSeconds: number) => {
-    const minutes = String(Math.trunc(totalSeconds / 60)).padStart(2, "0");
-    const seconds = String(Math.trunc(totalSeconds % 60)).padStart(2, "0");
-    return `${minutes}:${seconds}`;
-  };
-  const secondsToString = (seconds: number) => {
-    return `${Math.trunc(seconds / 60)}分${Math.trunc(seconds % 60)}秒`;
-  };
-
-  const dateToLocaleString = (date: Date) => {
-    return date.toLocaleString("ja-JP", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
   const today = dateToLocaleString(new Date());
   const todayRecords = records.filter(
     (record) => dateToLocaleString(record.date) === today,
@@ -121,6 +94,8 @@ function App() {
           </button>
         )}
       </div>
+
+      {/* 記録部分 */}
       <div className="flex w-full max-w-sm flex-col items-center rounded-2xl bg-mist-100 px-4 py-1.5 shadow-2xl">
         <p className="text-xl font-semibold">今日の達成記録</p>
         <div className="flex gap-3 font-bold">
