@@ -6,3 +6,9 @@ export interface WorkingRecord {
   date: Date; // 作業開始日時
   duration: number; // 作業時間(秒)
 }
+
+export interface DailySummary {
+  date: string;
+  count: number;
+  duration: number; //合計時間
+}
