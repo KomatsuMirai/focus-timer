@@ -1,4 +1,4 @@
-import type { WorkingStatus, WorkingRecord } from "./types";
+import type { WorkingRecord } from "./types";
 import { useEffect, useState } from "react";
 
 import { History } from "lucide-react";
@@ -12,7 +12,6 @@ import { getStatusStyle } from "./lib/statusStyle";
 import { TodayRecordFrame } from "./components/TodayRecordFrame";
 
 function App() {
-  const [status, setStatus] = useState<WorkingStatus>("休憩中");
   const [records, setRecords] = useState<WorkingRecord[]>([]);
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [passedTime, setPassedTime] = useState<number>(0);
@@ -27,6 +26,7 @@ function App() {
   }, [startTime]);
 
   const isAchieved = passedTime >= 60;
+  const status = startTime === null ? "休憩中" : "作業中";
 
   const stopTimer = () => {
     if (startTime !== null) {
@@ -36,7 +36,6 @@ function App() {
       }
       setPassedTime(0);
       setStartTime(null);
-      setStatus("休憩中");
     }
   };
 
@@ -50,7 +49,6 @@ function App() {
     0,
   );
   const todayMinutes = Math.trunc(todaySeconds / 60);
-
   const statusStyle = getStatusStyle(status, isAchieved);
 
   return (
@@ -78,7 +76,6 @@ function App() {
           <button
             className="rounded-lg border-3 border-transparent bg-blue-500 px-4 py-2 text-white active:scale-95"
             onClick={() => {
-              setStatus("作業中");
               setStartTime(new Date());
             }}
           >
