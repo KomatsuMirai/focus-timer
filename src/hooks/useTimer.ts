@@ -14,6 +14,15 @@ export function useTimer() {
     return () => clearInterval(upTimer);
   }, [startTime]);
 
+  const startTimer = () => {
+    setStartTime(new Date());
+  };
+
+  const resetTimer = () => {
+    setPassedTime(0);
+    setStartTime(null);
+  };
+
   const isAchieved = passedTime >= 60;
   const status: WorkingStatus = startTime === null ? "休憩中" : "作業中";
 
@@ -22,7 +31,7 @@ export function useTimer() {
     passedTime,
     isAchieved,
     status,
-    setStartTime,
-    setPassedTime,
+    startTimer,
+    resetTimer,
   };
 }

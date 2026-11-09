@@ -13,14 +13,8 @@ import { getStatusStyle } from "./lib/statusStyle";
 import { TodayRecordFrame } from "./components/TodayRecordFrame";
 
 function App() {
-  const {
-    startTime,
-    passedTime,
-    isAchieved,
-    status,
-    setStartTime,
-    setPassedTime,
-  } = useTimer();
+  const { startTime, passedTime, isAchieved, status, startTimer, resetTimer } =
+    useTimer();
   const [records, setRecords] = useState<WorkingRecord[]>([]);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
 
@@ -30,8 +24,7 @@ function App() {
         const duration = (new Date().getTime() - startTime.getTime()) / 1000;
         setRecords([...records, { date: startTime, duration: duration }]);
       }
-      setPassedTime(0);
-      setStartTime(null);
+      resetTimer();
     }
   };
 
@@ -72,7 +65,7 @@ function App() {
           <button
             className="rounded-lg border-3 border-transparent bg-blue-500 px-4 py-2 text-white active:scale-95"
             onClick={() => {
-              setStartTime(new Date());
+              startTimer();
             }}
           >
             1分だけ始める
