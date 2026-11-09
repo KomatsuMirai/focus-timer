@@ -1,5 +1,5 @@
 import type { WorkingRecord } from "./types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { History } from "lucide-react";
 import { CircularProgressCombined } from "@/components/ui/circular-progress";
@@ -8,25 +8,21 @@ import {
   secondsToString,
   dateToLocaleString,
 } from "./lib/formatDateTime";
+import { useTimer } from "./hooks/useTimer";
 import { getStatusStyle } from "./lib/statusStyle";
 import { TodayRecordFrame } from "./components/TodayRecordFrame";
 
 function App() {
+  const {
+    startTime,
+    passedTime,
+    isAchieved,
+    status,
+    setStartTime,
+    setPassedTime,
+  } = useTimer();
   const [records, setRecords] = useState<WorkingRecord[]>([]);
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [passedTime, setPassedTime] = useState<number>(0);
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (startTime === null) return;
-    const upTimer = setInterval(() => {
-      setPassedTime((new Date().getTime() - startTime.getTime()) / 1000);
-    }, 1000);
-    return () => clearInterval(upTimer);
-  }, [startTime]);
-
-  const isAchieved = passedTime >= 60;
-  const status = startTime === null ? "休憩中" : "作業中";
 
   const stopTimer = () => {
     if (startTime !== null) {
