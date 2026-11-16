@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+# まずは1分タイマー
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+「1分だけ始める」ボタンを押して、まず1分だけ作業するためのタイマーアプリです。
+1分続けられたら達成として記録し、今日の達成回数と合計時間を表示します。
 
-Currently, two official plugins are available:
+> 現在、開発中です。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 作った理由
 
-## React Compiler
+- やる気が出ないときや調子が悪いときでも、「1分だけなら」と始めやすくするために作りました。
+- 長く続けることではなく、「始められた」ことを記録して、小さな達成を目で見えるようにしたいと考えました。
+- あわせて、React + TypeScript の練習と、Laravel + MySQL との連携を学ぶ題材にしています。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## できること
 
-## Expanding the ESLint configuration
+- 「1分だけ始める」ボタンで計測を開始
+- 残り時間が減っていく円形のゲージ
+- 1分たつと「1分達成」の表示に変わり、色も変わる
+- 1分たつ前は「中断する」、たった後は「終了する」ボタンを表示
+- 1分以上続けたときだけ記録を残す
+- 今日の達成回数と合計時間（分）を表示
+- 履歴をモーダル（画面の上に重ねて出る窓）で表示
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 使った技術
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/ui（円形のゲージ）
+- tw-animate-css（ボタンがふわっと出る動き）
+- lucide-react（アイコン）
+- M PLUS Rounded 1c（丸みのある文字）
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+今後、次の技術を加える予定です。
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Laravel（サーバー側）
+- MySQL（記録の保存）
+- Laravel Sanctum（ログイン）
 
+## 動かし方
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+表示された URL（例：http://localhost:5173）をブラウザで開いてください。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## フォルダの中身
 
 ```
+src/
+├── components/  画面の部品（今日の記録の枠、円形のゲージなど）
+├── hooks/       タイマーの処理（useTimer）
+├── lib/         時間の表示の形、状態ごとの色と文字
+└── types.ts     状態・記録・日ごとのまとめの型
+```
+
+## これからの予定
+
+1. 文字の変更（完了）
+2. 減っていくゲージ（完了）
+3. 今日の実績の表示（完了）
+4. 柔らかい雰囲気の見た目（完了）
+5. 履歴を日ごとのまとめにする（作業中）
+6. Laravel + MySQL で記録を保存する
+
+あとで足したいもの
+
+- 1分達成したときに音を鳴らす
+- タイマーを動かしている間、背景に波のような動きを出す
+- 音と背景の動きを、それぞれオン・オフできる設定
