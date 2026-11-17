@@ -1,4 +1,4 @@
-import type { WorkingRecord } from "./types";
+import type { DailySummary, WorkingRecord } from "./types";
 import { useState } from "react";
 
 import { History } from "lucide-react";
@@ -39,6 +39,18 @@ function App() {
   );
   const todayMinutes = Math.trunc(todaySeconds / 60);
   const statusStyle = getStatusStyle(status, isAchieved);
+
+  const dailySummaries: DailySummary[] = [];
+  for (const record of records) {
+    const date = dateToLocaleString(record.date);
+    const found = dailySummaries.find((summary) => summary.date === date);
+    if (found) {
+      found.count += 1;
+      found.duration += record.duration;
+      continue;
+    }
+    dailySummaries.push({ date: date, count: 1, duration: record.duration });
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-mist-200 text-mist-800">
